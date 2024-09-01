@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  /* General Styles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #283e4a;
+    color: white;
+    position: relative;
+    z-index: 10;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ff4b2b;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+
+  .nav-link:hover {
+    color: #ff4b2b;
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    background-color: #283e4a;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .menu-link {
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+
+  .menu-link:hover {
+    color: #ff4b2b;
+  }
+
+  /* Desktop View */
+  @media (min-width: 768px) {
+    .nav {
+      display: flex;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .menu {
+      display: none;
+    }
+  }
+
+  /* Mobile View */
+  @media (max-width: 767px) {
+    .menu-toggle {
+      display: block;
+    }
+
+    .menu.open {
+      display: flex;
+    }
+  }
+
+  /* Container Styles */
+  .container {
+    text-align: center;
+    padding: 100px 20px;
+    z-index: 5;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 48px;
+    color: #283e4a;
+    animation: fadeInDown 1s ease-out;
+  }
+
+  p {
+    font-size: 18px;
+    color: #555;
+    margin-top: 20px;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .button-container a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 10px;
+    font-size: 18px;
+    color: white;
+    background-color: #ff4b2b;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .button-container a:hover {
+    background-color: #ff7f50;
+    transform: translateY(-5px);
+  }
+
+  /* Background Animation */
+  .background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #4e3b36, #ff7f50, #301d1a);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+    z-index: 1;
+    opacity: 0.6;
+  }
+
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Text Animations */
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  h2 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    form {
+        background: rgba(255, 255, 255, 0.704);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        animation: fadeIn 0.5s ease-in;
+        box-sizing: border-box; /* Ensures padding is included in total width */
+    }
+    textarea {
+        width: calc(100% - 0px); /* Adjusts width to account for padding */
+        /* height: 100px; */
+        padding: 10px;
+        background-color: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        resize: vertical;
+        font-size: 16px;
+        margin-bottom: 15px;
+        box-sizing: border-box; /* Ensures padding is included in total width */
+        transition: border-color 0.3s ease;
+    }
+    textarea:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+    button {
+        background-color: #ff4b2b;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #ff7f50;
+    }
+    #sent {
+      background-color: #283e4a;
+      display: flex;
+      text-align: center;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      justify-items: center;
+      border-radius: 10px;
+      box-shadow: 2px rgba(70, 69, 69, 0.238);
+      padding: 4px 14px;
+      position: absolute;
+      top: -220px;
+      align-self: center;
+      justify-self: center;
+      /* right: 50%; */
+      z-index: 88;
+      animation-duration: 6s;
+      animation-iteration-count: 1;
+      animation-name: sent;
+    }
+    #sent p {
+      color: #ff4b2b;
+      font-weight: 700;
+    } 
+    @keyframes sent {
+      0% {top:-220px}
+      10% {top:20px}
+      90% {top:20px}
+      100% {top:-220px}
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+<body>
+    <header class="header">
+        <div class="logo">Husenteet!</div>
+        <nav class="nav">
+            <a href="/login" class="nav-link">Login</a>
+            <a href="/signup" class="nav-link">Sign Up</a>
+        </nav>
+        <button class="menu-toggle">Menu</button>
+        <div class="menu">
+            <a href="/login" class="menu-link">Login</a>
+            <a href="/signup" class="menu-link">Sign Up</a>
+        </div>
+    </header>
+        
+      
+    <div class="background-animation"></div>
+    <div class="container">
+    <!-- <div id="sent"><p>Message sent!</p></div> -->
+    {% if messages %}
+      {% for message in messages %}
+        <div id="sent"><p>{{ message }}</p></div>
+      {% endfor %}
+    {% endif %} 
+    <form method="POST">
+            <h2>Send an anonymous message to {{ recipient.username }}</h2>
+            {% csrf_token %}
+            <textarea name="content" placeholder="Your message..." rows="8" required></textarea>
+            <button id="sendBtn" type="submit">Send</button>
+        </form>
+    </div>
+      
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menu = document.querySelector('.menu');
+        const btn = document.getElementById("sendBtn");
+
+        
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  /* General Styles */
+  body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f4f8;
+    color: #333;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px;
+    background-color: #293368;
+    color: white;
+    position: relative;
+    z-index: 10;
+  }
+
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #d5d3e9;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .nav-link {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+
+  .nav-link:hover {
+    color: #293368c9;
+  }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .menu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 20px;
+    background-color: #293368;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .menu-link {
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+
+  .menu-link:hover {
+    color: #293368e3;
+  }
+
+  /* Desktop View */
+  @media (min-width: 768px) {
+    .nav {
+      display: flex;
+    }
+
+    .menu-toggle {
+      display: none;
+    }
+
+    .menu {
+      display: none;
+    }
+  }
+  @media (max-width: 767px) {
+        header {
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+    }
+  /* Mobile View */
+  @media (max-width: 767px) {
+    .menu-toggle {
+      display: block;
+    }
+
+    .menu.open {
+      display: flex;
+    }
+  }
+
+  /* Container Styles */
+  .container {
+    text-align: center;
+    padding: 100px 20px;
+    z-index: 5;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    position: relative;
+  }
+
+  h1 {
+    font-size: 48px;
+    color: #283e4a;
+    animation: fadeInDown 1s ease-out;
+  }
+
+  p {
+    font-size: 18px;
+    color: #555;
+    margin-top: 20px;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .button-container a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 10px;
+    font-size: 18px;
+    color: white;
+    background-color: #283e4a;
+    border-radius: 30px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .button-container a:hover {
+    background-color: #283e4add;
+    transform: translateY(-5px);
+  }
+  input[type="text"],
+    input[type="password"] {
+        width: calc(100% - 20px);
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 14px;
+        transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    }
+
+    input[type="text"]:focus,
+    input[type="password"]:focus {
+        border-color: #283e4add;
+        outline: none;
+        /* box-shadow: 0 0 8px rgba(0, 123, 255, 0.3); */
+    }
+  /* Background Animation */
+  .background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #dfe1e8, #ffffff,  #e4e2f8);
+    background-size: 400% 400%;
+    animation: gradientAnimation 10s ease infinite;
+    z-index: 1;
+    opacity: 0.6;
+  }
+
+  @keyframes gradientAnimation {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* Text Animations */
+  @keyframes fadeInDown {
+    0% {
+      opacity: 0;
+      transform: translateY(-50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  h2 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    form {
+        background: rgba(255, 255, 255, 0.704);
+        backdrop-filter: blur(10px);
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        text-align: left;
+        animation: fadeIn 0.5s ease-in;
+        box-sizing: border-box; /* Ensures padding is included in total width */
+    }
+    
+    button {
+        background-color: #293368;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+    }
+    button:hover {
+        background-color: #293368cf;
+    }
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    span a {
+      color: #293368;
+      text-decoration: none;
+    }
+</style>
+<body>
+    <header class="header">
+        <div class="logo">Husenteet!</div>
+        <nav class="nav">
+            <a href="/login" class="nav-link">Login</a>
+            <a href="/signup" class="nav-link">Sign Up</a>
+        </nav>
+        <button class="menu-toggle">Menu</button>
+        <div class="menu">
+            <a href="/login" class="menu-link">Login</a>
+            <a href="/signup" class="menu-link">Sign Up</a>
+        </div>
+    </header>
+        
+      
+    <div class="background-animation"></div>
+    <div class="container">
+        <form method="POST">
+            <h2>Login</h2>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Login</button><br><br>
+            <span>Don't have an account? <a href="{% url 'register' %}">register.</a></span>
+        </form>
+    </div>
+      
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menu = document.querySelector('.menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+    </script>
+</body>
+</html>

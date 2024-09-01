@@ -1,0 +1,395 @@
+{% extends "main/base.html" %}
+{% block content %}
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        /* background-color: #f4f4f9; */
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: linear-gradient(135deg, #dfe1e8, #ffffff,  #e4e2f8);
+        background-size: 400% 400%;
+        animation: gradientAnimation 10s ease infinite;
+    }
+    .container {
+        margin-top: 60px; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100%;
+        
+    }
+    @keyframes gradientAnimation {
+        0% { background-position: 0% 50%; }
+        50% { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        /* padding: 20px !important; */
+        width: 100%;
+        top: 0px !important;
+        background-color: #293368;
+        color: white;
+        position: fixed;
+        z-index: 10;
+        height: 70px;
+    }
+    @media (max-width: 767px) {
+        header {
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+    }
+
+    .logo {
+        font-size: 24px;
+        padding-left: 20px;
+        font-weight: bold;
+        color: #d5d3e9;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .nav-link {
+        color: white;
+        text-decoration: none;
+        margin: 0 15px;
+        font-size: 18px;
+        transition: color 0.3s;
+    }
+
+    .nav-link:hover {
+        color: #293368e3;
+    }
+
+    .menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        margin-top: 8px;
+        margin-right: 3px;
+        border-radius: 5px;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+    }
+
+    .menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 105%;
+        right: 30px;
+        background-color: #293368;
+        padding: 10px;
+        border-radius: 5px;
+    }
+
+    .menu-link {
+        color: white;
+        text-decoration: none;
+        margin: 10px 0;
+        font-size: 18px;
+        transition: color 0.3s;
+    }
+
+    .menu-link:hover {
+        color: #293368e3;
+    }
+
+        /* Desktop View */
+    @media (min-width: 768px) {
+        .nav {
+        display: flex;
+        }
+
+        .menu-toggle {
+        display: none;
+        }
+
+        .menu {
+        display: none;
+        }
+    }
+
+    /* Mobile View */
+    @media (max-width: 767px) {
+        .menu-toggle {
+        display: block;
+        }
+
+        .menu.open {
+        display: flex;
+        }
+        .tabcontent {
+            border-radius: 0px !important;
+        }
+    }
+
+    h2 {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    p {
+        font-size: 16px;
+        margin-bottom: 10px;
+        text-align: center;
+        animation: fadeIn 1.5s ease-in-out;
+    }
+
+    input[type="text"] {
+        width: 80%;
+        max-width: 400px;
+        padding: 10px;
+        margin-bottom: 20px;
+        font-size: 16px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        animation: fadeIn 2s ease-in-out;
+        background: rgba(255, 255, 255, 0.704);
+        backdrop-filter: blur(10px);
+    }
+
+    button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 20px;
+        background-color: #293368;
+        color: white;
+        cursor: pointer;
+        margin-bottom: 13px;
+        transition: background-color 0.3s ease;
+        animation: fadeIn 2.5s ease-in-out;
+    }
+
+    button:hover {
+        background-color: #293368e3;
+    }
+
+    /* Tabs and Message Container Styles */
+    .tabs {
+        margin-bottom: 20px;
+        animation: fadeIn 3s ease-in-out;
+    }
+
+    .tablinks {
+        padding: 10px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 20px;
+        /* background-color: #007bff; */
+        color: white;
+        cursor: pointer;
+        margin-right: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    
+    .tabcontent {
+        display: none;
+        width: 100%;
+        max-width: 500px;
+        background: rgba(255, 255, 255, 0.704);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        animation: fadeInUp 1s ease-in-out;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .tabcontent h3 {
+        padding: 10px;
+    }
+    /* Individual Message Styles */
+    .message {
+        padding: 15px;
+        margin-bottom: 10px;
+        background-color: #f9f9f9; 
+        position: relative;
+        display: flex;
+        z-index: 999999;
+        justify-content: space-between;
+        align-items: center;
+    }
+    div.message-con {
+        background-color: #293368;
+        padding: 25px 0px 0px 0px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        border-radius: 6px;
+        transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+    span.title {
+        position: relative;
+        align-self: center;
+        justify-self: center;
+        text-align: center;
+        color: #d5d3e9;
+        z-index: 9999;
+        top: -10px;
+        padding: 10px;
+    }
+    .msg-head {
+        position: relative;
+        z-index: 9999;
+    }
+    .message-con:hover {
+        transform: translateY(-3px);
+        /* background-color: #f0f0f5; */
+    }
+
+    .message span {
+        color: #555;
+        font-size: 14px;
+    }
+
+    .message small {
+        /* margin-left: 10px; */
+        color: #888;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+
+    .camera-icon {
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
+        transition: transform 0.2s ease;
+    }
+
+    .camera-icon:hover {
+        transform: scale(1.2);
+    }
+
+    /* Active Tab */
+    .active {
+        display: block;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+</style>
+    <header class="header">
+        <div class="logo">Husenteet!</div>
+        <nav class="nav">
+            <a href="#" class="nav-link">Logout</a>
+        </nav>
+        <button class="menu-toggle">Menu</button>
+        <div class="menu">
+            <a href="{% url 'logout' %}" class="menu-link">Logout</a>
+            <!-- <a href="/signup" class="menu-link">Sign Up</a> -->
+        </div>
+    </header>
+    <div class="container">
+        <h2>Welcome, {{ user.username }}</h2>
+
+        <!-- Copy Anonymous Message Link -->
+        <p>Your anonymous message link:</p>
+        <input type="text" value="{{ request.build_absolute_uri|slice:':'|add:'send_message/'|add:user.username }}" readonly id="anonLink">
+        <button onclick="copyLink()">Copy Link</button>
+
+        <!-- Tabs for Messages -->
+        <div class="tabs">
+            <button class="tablinks" onclick="openTab(event, 'Messages')">View Messages</button>
+        </div>
+
+        <div id="Messages" class="tabcontent" style="display:none;">
+            <h3>Your Anonymous Messages</h3>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="message-con">
+                        <div class="msg-head"><span class="title">Anonymous Message</span></div>
+                        <div class="message">
+                            <span><small>Sent: ({{ message.timestamp }})</small><br><br>{{ message.content|linebreaksbr }} </span>
+                            <span class="camera-icon" onclick="captureSnapshot(this)">📸</span>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No messages yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
+    <script>
+        function copyLink() {
+            var copyText = document.getElementById("anonLink");
+            copyText.select();
+            document.execCommand("copy");
+            alert("Link copied: " + copyText.value);
+        }
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function captureSnapshot(element) {
+            let messageDiv = element.closest('.message-con');  // Ensure the entire message-con is captured
+            html2canvas(messageDiv, {
+                backgroundColor: null, // Ensure the background is transparent
+                scale: 10, // Increase the scale for better resolution
+            }).then(canvas => {
+                let link = document.createElement('a');
+                link.download = 'anonymous-message.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            });
+        }
+
+    </script>
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menu = document.querySelector('.menu');
+
+        menuToggle.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+    </script>
+
+
+{% endblock content %}
