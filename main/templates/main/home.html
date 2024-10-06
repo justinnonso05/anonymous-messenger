@@ -333,7 +333,7 @@
                     <div class="message-con">
                         <div class="msg-head"><span class="title">Anonymous Message</span></div>
                         <div class="message">
-                            <span><small>Sent: ({{ message.timestamp }})</small><br><br>{{ message.content|linebreaksbr }} </span>
+                            <span><small>Sent: ({{ message.timestamp }})</small><br><br>{{ message.content|safe|linebreaksbr }} </span>
                             <span class="camera-icon" onclick="captureSnapshot(this)">📸</span>
                         </div>
                     </div>

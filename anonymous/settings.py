@@ -26,19 +26,27 @@ SECRET_KEY = 'django-insecure-e)llbk1oc#_9u4r*mp)l=8-=g26iy(qs5qvg&_pgcz-ouh^aog
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ["https://0185-102-89-47-80.ngrok-free.app"]
+CSRF_TRUSTED_ORIGINS = ["https://8ddb-102-88-81-164.ngrok-free.app"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'main',
+    "unfold",  # before django.contrib.admin
+    "unfold.contrib.filters",  # optional, if special filters are needed
+    "unfold.contrib.forms",  # optional, if special form elements are needed
+    "unfold.contrib.inlines",  # optional, if special inlines are needed
+    "unfold.contrib.import_export",  # optional, if django-import-export package is used
+    "unfold.contrib.guardian",  # optional, if django-guardian package is used
+    "unfold.contrib.simple_history",  # optional, if django-simple-history package is used
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'main',
+    # 'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +133,4 @@ LOGIN_REDIRECT_URL = 'home'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# CKEDITOR_UPLOAD_PATH = 'content/ckeditor/'

@@ -1,6 +1,11 @@
 from django.urls import path
 from django.contrib.auth import views as auth_views
 from . import views
+from django.contrib import admin
+
+admin.site.site_title = "Blog site admin (DEV)"
+admin.site.site_header = "Admin Panel"
+admin.site.index_title = "Site administration"
 
 urlpatterns = [
     path('auth/', views.auth, name="auth"),

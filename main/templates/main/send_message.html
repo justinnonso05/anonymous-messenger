@@ -310,11 +310,15 @@
     <form method="POST">
             <h2>Send an anonymous message to {{ recipient.username }}</h2>
             {% csrf_token %}
-            <textarea name="content" placeholder="Your message..." rows="8" required></textarea>
+            <textarea id="text_message" name="content" placeholder="Your message..." rows="8" required></textarea>
             <button id="sendBtn" type="submit">Send</button>
         </form>
     </div>
-      
+    
+    <!-- <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script>
+      CKEDITOR.replace('text_message');  
+  </script> -->
     <script>
         const menuToggle = document.querySelector('.menu-toggle');
         const menu = document.querySelector('.menu');
