@@ -82,7 +82,11 @@
   }
 
   .menu-link:hover {
-    color: #293368;
+    color: #d5d3e9;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 5px 10px;
+    border-radius: 4px;
+    margin: 5px -10px;
   }
 
   /* Desktop View */
@@ -114,14 +118,17 @@
   /* Container Styles */
   .container {
     text-align: center;
-    padding: 100px 20px;
+    padding: 60px 20px;
     z-index: 5;
     display: flex;
+    flex-direction: column;
     align-content: center;
     align-items: center;
     justify-content: center;
     justify-items: center;
     position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
   }
 
   h1 {
@@ -156,7 +163,7 @@
 
   /* Background Animation */
   .background-animation {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -196,93 +203,258 @@
       transform: translateY(0);
     }
   }
+  
   h2 {
-        color: #333;
-        text-align: center;
-        margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  form {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    max-width: 450px;
+    width: 100%;
+    animation: fadeIn 0.5s ease-in;
+    box-sizing: border-box; /* Ensures padding is included in total width */
+    border: 1px solid rgba(211, 211, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  form h2 {
+    color: #293368;
+    font-size: 22px;
+    margin-bottom: 20px;
+  }
+  
+  textarea {
+    width: 100%;
+    padding: 12px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    resize: vertical;
+    font-size: 16px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, transform 0.2s ease;
+    min-height: 120px;
+  }
+  
+  textarea:focus {
+    border-color: #293368;
+    outline: none;
+    transform: scale(1.01);
+    box-shadow: 0 2px 8px rgba(41, 51, 104, 0.1);
+  }
+  
+  button {
+    background-color: #293368;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  
+  button:hover {
+    background-color: #3a4482;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(41, 51, 104, 0.2);
+  }
+  
+  #sent {
+    background-color: #293368;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 8px 20px;
+    position: absolute;
+    top: -220px;
+    align-self: center;
+    justify-self: center;
+    z-index: 88;
+    animation-duration: 6s;
+    animation-iteration-count: 1;
+    animation-name: sent;
+  }
+  
+  #sent p {
+    color: #d5d3e9;
+    font-weight: 700;
+    margin: 0;
+  } 
+  
+  @keyframes sent {
+    0% {top:-220px}
+    10% {top:20px}
+    90% {top:20px}
+    100% {top:-220px}
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
     }
-    form {
-        background: rgba(255, 255, 255, 0.704);
-        backdrop-filter: blur(10px);
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        max-width: 400px;
-        width: 100%;
-        animation: fadeIn 0.5s ease-in;
-        box-sizing: border-box; /* Ensures padding is included in total width */
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
-    textarea {
-        width: calc(100% - 0px); /* Adjusts width to account for padding */
-        /* height: 100px; */
-        padding: 10px;
-        background-color: white;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        resize: vertical;
-        font-size: 16px;
-        margin-bottom: 15px;
-        box-sizing: border-box; /* Ensures padding is included in total width */
-        transition: border-color 0.3s ease;
-    }
-    textarea:focus {
-        border-color: #007bff;
-        outline: none;
-    }
-    button {
-        background-color: #293368;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-        transition: background-color 0.3s ease;
-    }
-    button:hover {
-        background-color: #293368e3;
-    }
-    #sent {
-      background-color: #293368;
-      display: flex;
-      text-align: center;
+  }
+  
+  /* New Styles for Added Features */
+  .signup-banner {
+    background: linear-gradient(45deg, #293368, #4854a2);
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 40px;
+    color: white;
+    max-width: 550px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(41, 51, 104, 0.2);
+    animation: fadeInUp 0.5s ease-out;
+    animation-delay: 0.3s;
+    animation-fill-mode: both;
+  }
+  
+  .signup-banner h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #d5d3e9;
+  }
+  
+  .signup-banner p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 20px;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .signup-btn {
+    background-color: white;
+    color: #293368;
+    border: none;
+    padding: 12px 28px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+  }
+  
+  .signup-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    background-color: #f0f0ff;
+  }
+  
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 30px;
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .feature {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    flex: 1 1 200px;
+    max-width: 250px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+  }
+  
+  .feature:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature-icon {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #293368;
+  }
+  
+  .feature h4 {
+    color: #293368;
+    margin-bottom: 10px;
+    font-size: 18px;
+  }
+  
+  .feature p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  
+  .message-example {
+    position: absolute;
+    width: 200px;
+    background-color: #293368;
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    opacity: 0;
+    animation: float 6s ease-in-out infinite, fadeIn 1s ease-in-out forwards;
+    animation-delay: 1s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+  }
+  
+  .message-example:nth-child(odd) {
+    right: 10%;
+    top: 25%;
+  }
+  
+  .message-example:nth-child(even) {
+    left: 10%;
+    top: 40%;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  @media (max-width: 768px) {
+    .features {
+      flex-direction: column;
       align-items: center;
-      align-content: center;
-      justify-content: center;
-      justify-items: center;
-      border-radius: 10px;
-      box-shadow: 2px rgba(70, 69, 69, 0.238);
-      padding: 4px 14px;
-      position: absolute;
-      top: -220px;
-      align-self: center;
-      justify-self: center;
-      /* right: 50%; */
-      z-index: 88;
-      animation-duration: 6s;
-      animation-iteration-count: 1;
-      animation-name: sent;
     }
-    #sent p {
-      color: #d5d3e9;
-      font-weight: 700;
-    } 
-    @keyframes sent {
-      0% {top:-220px}
-      10% {top:20px}
-      90% {top:20px}
-      100% {top:-220px}
+    .feature {
+      max-width: 100%;
     }
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(-10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .message-example {
+      display: none;
     }
+  }
 </style>
 <body>
     <header class="header">
@@ -291,40 +463,66 @@
             <a href="/login" class="nav-link">Login</a>
             <a href="/signup" class="nav-link">Sign Up</a>
         </nav>
-        <button class="menu-toggle">Menu</button>
+        <button class="menu-toggle">☰</button>
         <div class="menu">
             <a href="/login" class="menu-link">Login</a>
             <a href="/signup" class="menu-link">Sign Up</a>
         </div>
     </header>
         
-      
     <div class="background-animation"></div>
-    <div class="container">
-    <!-- <div id="sent"><p>Message sent!</p></div> -->
-    {% if messages %}
-      {% for message in messages %}
-        <div id="sent"><p>{{ message }}</p></div>
-      {% endfor %}
-    {% endif %} 
-    <form method="POST">
-            <h2>Send an anonymous message to {{ recipient.username }}</h2>
-            {% csrf_token %}
-            <textarea id="text_message" name="content" placeholder="Your message..." rows="8" required></textarea>
-            <button id="sendBtn" type="submit">Send</button>
-        </form>
+    
+    <!-- Floating message examples -->
+    <div class="message-example">
+        "Thank you for the advice! You're always so helpful 😊"
+    </div>
+    <div class="message-example">
+        "I've been wanting to tell you this for a while... you're awesome!"
     </div>
     
-    <!-- <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-    <script>
-      CKEDITOR.replace('text_message');  
-  </script> -->
+    <div class="container">
+        {% if messages %}
+          {% for message in messages %}
+            <div id="sent"><p>{{ message }}</p></div>
+          {% endfor %}
+        {% endif %} 
+        
+        <form method="POST">
+            <h2>Send an anonymous message to {{ recipient.username }}</h2>
+            {% csrf_token %}
+            <textarea id="text_message" name="content" placeholder="Write your anonymous message here... Be kind!" rows="6" required></textarea>
+            <button id="sendBtn" type="submit">Send Message</button>
+        </form>
+        
+        <div class="signup-banner">
+            <h3>Want to receive anonymous messages too?</h3>
+            <p>Create your own profile and share your personal link with friends to start receiving anonymous messages, compliments, and honest feedback!</p>
+            <a href="/signup" class="signup-btn">Sign Up Free</a>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <div class="feature-icon">🔒</div>
+                <h4>Complete Privacy</h4>
+                <p>All messages are 100% anonymous. Your identity is never revealed.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📱</div>
+                <h4>Works Everywhere</h4>
+                <p>Use Husenteet on any device, anytime, anywhere.</p>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🚀</div>
+                <h4>Easy to Share</h4>
+                <p>Generate your unique link and share it on social media.</p>
+            </div>
+        </div>
+    </div>
+    
     <script>
         const menuToggle = document.querySelector('.menu-toggle');
         const menu = document.querySelector('.menu');
         const btn = document.getElementById("sendBtn");
-
-        
 
         menuToggle.addEventListener('click', () => {
             menu.classList.toggle('open');

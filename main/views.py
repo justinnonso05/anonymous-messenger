@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseForbidden, HttpResponseRedirect
 from .models import Message, User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -46,8 +46,17 @@ def auth(request):
 def user_home(request):
     if not request.user.is_authenticated:
         return redirect('auth')
-    messages = request.user.messages.all()  # Assuming related_name='messages' in Message model
+    messages = request.user.messages.all()  
     return render(request, 'main/home.html', {'messages': messages})
 
-def red_to_home():
-    ...
+@login_required
+def message_detail(request, message_id):
+    message = get_object_or_404(Message, id=message_id)
+
+    # Only allow the owner to view the message
+    if message.recipient != request.user:
+        return HttpResponseForbidden("You are not allowed to view this message as it was not sent to you.")
+
+    # Mark as read and render
+    message.is_read = True
+    return render(request, 'main/message_detail.html', {'message': message})

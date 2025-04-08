@@ -3,13 +3,12 @@
 <style>
     body {
         font-family: 'Arial', sans-serif;
-        /* background-color: #f4f4f9; */
         color: #333;
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
-        background: linear-gradient(135deg, #dfe1e8, #ffffff,  #e4e2f8);
+        background: linear-gradient(135deg, #dfe1e8, #ffffff, #e4e2f8);
         background-size: 400% 400%;
         animation: gradientAnimation 10s ease infinite;
     }
@@ -20,7 +19,7 @@
         align-items: center;
         flex-direction: column;
         width: 100%;
-        
+        padding: 0 20px;
     }
     @keyframes gradientAnimation {
         0% { background-position: 0% 50%; }
@@ -32,14 +31,14 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        /* padding: 20px !important; */
         width: 100%;
-        top: 0px !important;
+        top: 0 !important;
         background-color: #293368;
         color: white;
         position: fixed;
         z-index: 10;
         height: 70px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
     @media (max-width: 767px) {
         header {
@@ -68,7 +67,8 @@
     }
 
     .nav-link:hover {
-        color: #293368e3;
+        color: #d5d3e9;
+        text-decoration: underline;
     }
 
     .menu-toggle {
@@ -76,7 +76,7 @@
         background: none;
         border: none;
         margin-top: 8px;
-        margin-right: 3px;
+        margin-right: 15px;
         border-radius: 5px;
         font-size: 24px;
         color: white;
@@ -92,6 +92,7 @@
         background-color: #293368;
         padding: 10px;
         border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     .menu-link {
@@ -100,38 +101,41 @@
         margin: 10px 0;
         font-size: 18px;
         transition: color 0.3s;
+        padding: 5px 15px;
     }
 
     .menu-link:hover {
-        color: #293368e3;
+        color: #d5d3e9;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
     }
 
-        /* Desktop View */
+    /* Desktop View */
     @media (min-width: 768px) {
         .nav {
-        display: flex;
+            display: flex;
         }
 
         .menu-toggle {
-        display: none;
+            display: none;
         }
 
         .menu {
-        display: none;
+            display: none;
         }
     }
 
     /* Mobile View */
     @media (max-width: 767px) {
         .menu-toggle {
-        display: block;
+            display: block;
         }
 
         .menu.open {
-        display: flex;
+            display: flex;
         }
         .tabcontent {
-            border-radius: 0px !important;
+            border-radius: 0 !important;
         }
     }
 
@@ -152,31 +156,38 @@
     input[type="text"] {
         width: 80%;
         max-width: 400px;
-        padding: 10px;
+        padding: 12px;
         margin-bottom: 20px;
         font-size: 16px;
-        border-radius: 4px;
+        border-radius: 6px;
         border: 1px solid #ccc;
         animation: fadeIn 2s ease-in-out;
-        background: rgba(255, 255, 255, 0.704);
+        background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(10px);
     }
 
     button {
-        padding: 10px 20px;
+        padding: 12px 24px;
         font-size: 16px;
         border: none;
         border-radius: 20px;
         background-color: #293368;
         color: white;
         cursor: pointer;
-        margin-bottom: 13px;
-        transition: background-color 0.3s ease;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
         animation: fadeIn 2.5s ease-in-out;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     button:hover {
-        background-color: #293368e3;
+        background-color: #3a4783;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    button:active {
+        transform: translateY(0);
     }
 
     /* Tabs and Message Container Styles */
@@ -190,92 +201,101 @@
         font-size: 16px;
         border: none;
         border-radius: 20px;
-        /* background-color: #007bff; */
         color: white;
         cursor: pointer;
         margin-right: 5px;
         transition: background-color 0.3s ease;
     }
 
-    
     .tabcontent {
         display: none;
         width: 100%;
         max-width: 500px;
-        background: rgba(255, 255, 255, 0.704);
+        background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(10px);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-radius: 12px;
         animation: fadeInUp 1s ease-in-out;
-        padding-right: 10px;
-        padding-left: 10px;
+        padding: 0 15px 15px 15px;
     }
+    
     .tabcontent h3 {
-        padding: 10px;
+        padding: 15px 10px;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 15px;
+        text-align: center;
+        color: #293368;
     }
+    
     /* Individual Message Styles */
     .message {
         padding: 15px;
         margin-bottom: 10px;
-        background-color: #f9f9f9; 
+        background-color: #f9f9f9;
         position: relative;
         display: flex;
-        z-index: 999999;
+        z-index: 1;
         justify-content: space-between;
         align-items: center;
+        border-radius: 0 0 6px 6px;
     }
+    
     div.message-con {
         background-color: #293368;
-        padding: 25px 0px 0px 0px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-        border-radius: 6px;
-        transition: transform 0.3s ease, background-color 0.3s ease;
+        padding: 25px 0 0 0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        transition: all 0.3s ease;
+        margin-bottom: 20px;
+        cursor: pointer;
     }
+    
     span.title {
         position: relative;
         align-self: center;
         justify-self: center;
         text-align: center;
         color: #d5d3e9;
-        z-index: 9999;
+        z-index: 2;
         top: -10px;
         padding: 10px;
+        font-weight: bold;
     }
+    
     .msg-head {
         position: relative;
-        z-index: 9999;
+        z-index: 2;
     }
+    
     .message-con:hover {
-        transform: translateY(-3px);
-        /* background-color: #f0f0f5; */
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
     }
 
     .message span {
         color: #555;
         font-size: 14px;
+        line-height: 1.5;
     }
 
     .message small {
-        /* margin-left: 10px; */
         color: #888;
         font-size: 12px;
         white-space: nowrap;
-    }
-
-    .camera-icon {
-        cursor: pointer;
-        width: 24px;
-        height: 24px;
-        transition: transform 0.2s ease;
-    }
-
-    .camera-icon:hover {
-        transform: scale(1.2);
+        font-style: italic;
     }
 
     /* Active Tab */
     .active {
         display: block;
+    }
+
+    /* Empty message styling */
+    .no-messages {
+        text-align: center;
+        padding: 20px;
+        color: #888;
+        font-style: italic;
     }
 
     /* Animations */
@@ -301,16 +321,33 @@
         }
     }
 
+    /* Toast notification */
+    .toast {
+        position: fixed;
+        top: 80px;
+        right: 20px;
+        background-color: #293368;
+        color: white;
+        padding: 15px 25px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        z-index: 100;
+    }
+    
+    .toast.show {
+        opacity: 1;
+    }
 </style>
     <header class="header">
         <div class="logo">Husenteet!</div>
         <nav class="nav">
-            <a href="#" class="nav-link">Logout</a>
+            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
         </nav>
-        <button class="menu-toggle">Menu</button>
+        <button class="menu-toggle">☰</button>
         <div class="menu">
             <a href="{% url 'logout' %}" class="menu-link">Logout</a>
-            <!-- <a href="/signup" class="menu-link">Sign Up</a> -->
         </div>
     </header>
     <div class="container">
@@ -320,38 +357,46 @@
         <p>Your anonymous message link:</p>
         <input type="text" value="{{ request.build_absolute_uri|slice:':'|add:'send_message/'|add:user.username }}" readonly id="anonLink">
         <button onclick="copyLink()">Copy Link</button>
+        
+        <div id="toast" class="toast">Link copied to clipboard!</div>
 
         <!-- Tabs for Messages -->
         <div class="tabs">
             <button class="tablinks" onclick="openTab(event, 'Messages')">View Messages</button>
         </div>
 
-        <div id="Messages" class="tabcontent" style="display:none;">
+        <div id="Messages" class="tabcontent">
             <h3>Your Anonymous Messages</h3>
             {% if messages %}
                 {% for message in messages %}
-                    <div class="message-con">
-                        <div class="msg-head"><span class="title">Anonymous Message</span></div>
-                        <div class="message">
-                            <span><small>Sent: ({{ message.timestamp }})</small><br><br>{{ message.content|safe|linebreaksbr }} </span>
-                            <span class="camera-icon" onclick="captureSnapshot(this)">📸</span>
-                        </div>
+                <div class="message-con" data-url="{% url 'message_detail' message.id %}" onclick="view(this)">
+                    <div class="msg-head"><span class="title">Anonymous Message</span></div>
+                    <div class="message">
+                        <span><small>Sent: ({{ message.timestamp }})</small><br><br>{{ message.content|safe|linebreaksbr }}</span>
                     </div>
+                </div>
                 {% endfor %}
             {% else %}
-                <p>No messages yet.</p>
+                <p class="no-messages">No messages yet. Share your link to receive anonymous messages!</p>
             {% endif %}
         </div>
     </div>
 
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
-
     <script>
+        // Copy link function with toast notification
         function copyLink() {
             var copyText = document.getElementById("anonLink");
             copyText.select();
             document.execCommand("copy");
-            alert("Link copied: " + copyText.value);
+            
+            // Show toast notification
+            var toast = document.getElementById("toast");
+            toast.classList.add("show");
+            
+            // Hide toast after 3 seconds
+            setTimeout(function() {
+                toast.classList.remove("show");
+            }, 3000);
         }
 
         function openTab(evt, tabName) {
@@ -368,28 +413,22 @@
             evt.currentTarget.className += " active";
         }
 
-        function captureSnapshot(element) {
-            let messageDiv = element.closest('.message-con');  // Ensure the entire message-con is captured
-            html2canvas(messageDiv, {
-                backgroundColor: null, // Ensure the background is transparent
-                scale: 10, // Increase the scale for better resolution
-            }).then(canvas => {
-                let link = document.createElement('a');
-                link.download = 'anonymous-message.png';
-                link.href = canvas.toDataURL();
-                link.click();
-            });
-        }
-
-    </script>
-    <script>
+        // Mobile menu toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const menu = document.querySelector('.menu');
 
         menuToggle.addEventListener('click', () => {
             menu.classList.toggle('open');
         });
+
+        function view(element) {
+            const url = element.getAttribute("data-url");
+            window.location.href = url;
+        }
+        
+        // Auto-open the Messages tab by default
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('.tablinks').click();
+        });
     </script>
-
-
 {% endblock content %}
