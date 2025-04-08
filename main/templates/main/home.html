@@ -1,8 +1,10 @@
 {% extends "main/base.html" %}
 {% block content %}
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
     body {
-        font-family: 'Arial', sans-serif;
+        font-family: 'Poppins', 'Arial', sans-serif;
         color: #333;
         display: flex;
         justify-content: center;
@@ -11,16 +13,25 @@
         background: linear-gradient(135deg, #dfe1e8, #ffffff, #e4e2f8);
         background-size: 400% 400%;
         animation: gradientAnimation 10s ease infinite;
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        width: 100%;
+        overflow-x: hidden; /* Prevent horizontal scroll */
     }
+    
     .container {
-        margin-top: 60px; 
+        margin-top: 80px; 
         display: flex;
         justify-content: center;
         align-items: center;
         flex-direction: column;
         width: 100%;
-        padding: 0 20px;
+        max-width: 600px;
+        padding: 0 15px;
+        box-sizing: border-box; /* Include padding in width calculation */
     }
+    
     @keyframes gradientAnimation {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
@@ -33,23 +44,31 @@
         align-items: center;
         width: 100%;
         top: 0 !important;
+        left: 0;
         background-color: #293368;
         color: white;
         position: fixed;
         z-index: 10;
         height: 70px;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        padding: 0 15px;
     }
+    
     @media (max-width: 767px) {
         header {
             border-bottom-left-radius: 20px;
             border-bottom-right-radius: 20px;
         }
+        
+        .container {
+            margin-top: 90px;
+            padding: 0 10px;
+        }
     }
 
     .logo {
         font-size: 24px;
-        padding-left: 20px;
         font-weight: bold;
         color: #d5d3e9;
     }
@@ -75,12 +94,13 @@
         display: none;
         background: none;
         border: none;
-        margin-top: 8px;
-        margin-right: 15px;
+        margin-top: 15px;
         border-radius: 5px;
         font-size: 24px;
         color: white;
         cursor: pointer;
+        padding: 5px 10px;
+        width: 60px;
     }
 
     .menu {
@@ -88,7 +108,7 @@
         flex-direction: column;
         position: absolute;
         top: 105%;
-        right: 30px;
+        right: 15px;
         background-color: #293368;
         padding: 10px;
         border-radius: 5px;
@@ -134,8 +154,19 @@
         .menu.open {
             display: flex;
         }
-        .tabcontent {
-            border-radius: 0 !important;
+        
+        h2 {
+            font-size: 24px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            font-size: 14px;
+        }
+        
+        button {
+            width: 100%;
+            padding: 10px;
         }
     }
 
@@ -144,6 +175,7 @@
         margin-bottom: 20px;
         color: #333;
         animation: fadeIn 1s ease-in-out;
+        text-align: center;
     }
 
     p {
@@ -151,10 +183,11 @@
         margin-bottom: 10px;
         text-align: center;
         animation: fadeIn 1.5s ease-in-out;
+        width: 100%;
     }
 
     input[type="text"] {
-        width: 80%;
+        width: 100%;
         max-width: 400px;
         padding: 12px;
         margin-bottom: 20px;
@@ -164,6 +197,7 @@
         animation: fadeIn 2s ease-in-out;
         background: rgba(255, 255, 255, 0.8);
         backdrop-filter: blur(10px);
+        box-sizing: border-box;
     }
 
     button {
@@ -178,6 +212,7 @@
         transition: all 0.3s ease;
         animation: fadeIn 2.5s ease-in-out;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
     }
 
     button:hover {
@@ -194,6 +229,9 @@
     .tabs {
         margin-bottom: 20px;
         animation: fadeIn 3s ease-in-out;
+        width: 100%;
+        display: flex;
+        justify-content: center;
     }
 
     .tablinks {
@@ -217,6 +255,14 @@
         border-radius: 12px;
         animation: fadeInUp 1s ease-in-out;
         padding: 0 15px 15px 15px;
+        box-sizing: border-box;
+    }
+    
+    @media (max-width: 767px) {
+        .tabcontent {
+            border-radius: 8px;
+            padding: 0 10px 10px 10px;
+        }
     }
     
     .tabcontent h3 {
@@ -238,6 +284,10 @@
         justify-content: space-between;
         align-items: center;
         border-radius: 0 0 6px 6px;
+        width: 100%;
+        box-sizing: border-box;
+        word-wrap: break-word; /* Ensure text wraps properly */
+        overflow-wrap: break-word;
     }
     
     div.message-con {
@@ -248,6 +298,8 @@
         transition: all 0.3s ease;
         margin-bottom: 20px;
         cursor: pointer;
+        width: 100%;
+        box-sizing: border-box;
     }
     
     span.title {
@@ -260,11 +312,14 @@
         top: -10px;
         padding: 10px;
         font-weight: bold;
+        display: block;
     }
     
     .msg-head {
         position: relative;
         z-index: 2;
+        width: 100%;
+        text-align: center;
     }
     
     .message-con:hover {
@@ -276,6 +331,7 @@
         color: #555;
         font-size: 14px;
         line-height: 1.5;
+        width: 100%;
     }
 
     .message small {
@@ -289,11 +345,16 @@
     .active {
         display: block;
     }
+    
+    /* Active Tab Button */
+    .tablinks.active {
+        background-color: #3a4783;
+        display: inline-block;
+    }
 
     /* Empty message styling */
     .no-messages {
         text-align: center;
-        padding: 20px;
         color: #888;
         font-style: italic;
     }
@@ -339,9 +400,20 @@
     .toast.show {
         opacity: 1;
     }
+    
+    @media (max-width: 480px) {
+        .toast {
+            top: auto;
+            bottom: 20px;
+            right: 50%;
+            transform: translateX(50%);
+            width: 80%;
+            text-align: center;
+        }
+    }
 </style>
     <header class="header">
-        <div class="logo">Husenteet!</div>
+        <div class="logo">JustWhisp</div>
         <nav class="nav">
             <a href="{% url 'logout' %}" class="nav-link">Logout</a>
         </nav>
@@ -360,19 +432,24 @@
         
         <div id="toast" class="toast">Link copied to clipboard!</div>
 
-        <!-- Tabs for Messages -->
-        <div class="tabs">
-            <button class="tablinks" onclick="openTab(event, 'Messages')">View Messages</button>
-        </div>
-
-        <div id="Messages" class="tabcontent">
+        <!-- Messages displayed directly -->
+        <div id="Messages" class="tabcontent" style="display: block;">
             <h3>Your Anonymous Messages</h3>
             {% if messages %}
                 {% for message in messages %}
                 <div class="message-con" data-url="{% url 'message_detail' message.id %}" onclick="view(this)">
                     <div class="msg-head"><span class="title">Anonymous Message</span></div>
                     <div class="message">
-                        <span><small>Sent: ({{ message.timestamp }})</small><br><br>{{ message.content|safe|linebreaksbr }}</span>
+                        <span>
+                            <small>Sent: ({{ message.timestamp }})</small><br><br>
+                            {% with content=message.content|striptags %}
+                                {% if content|length > 70 %}
+                                    {{ content|truncatechars:70|safe|linebreaksbr }}
+                                {% else %}
+                                    {{ content|safe|linebreaksbr }}
+                                {% endif %}
+                            {% endwith %}
+                        </span>
                     </div>
                 </div>
                 {% endfor %}
@@ -399,36 +476,30 @@
             }, 3000);
         }
 
-        function openTab(evt, tabName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.querySelector('.menu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (menu.classList.contains('open') && 
+                !event.target.closest('.menu') && 
+                event.target !== menuToggle) {
+                menu.classList.remove('open');
             }
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
-        }
+        });
 
         // Mobile menu toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const menu = document.querySelector('.menu');
 
-        menuToggle.addEventListener('click', () => {
+        menuToggle.addEventListener('click', function(event) {
             menu.classList.toggle('open');
+            event.stopPropagation();
         });
 
         function view(element) {
             const url = element.getAttribute("data-url");
             window.location.href = url;
         }
-        
-        // Auto-open the Messages tab by default
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelector('.tablinks').click();
-        });
     </script>
 {% endblock content %}

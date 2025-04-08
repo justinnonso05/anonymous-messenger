@@ -46,7 +46,7 @@ def auth(request):
 def user_home(request):
     if not request.user.is_authenticated:
         return redirect('auth')
-    messages = request.user.messages.all()  
+    messages = request.user.messages.order_by('-timestamp').all()
     return render(request, 'main/home.html', {'messages': messages})
 
 @login_required

@@ -3,18 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Husenteet</title>
+    <title>JustWhisp | Login</title>
 </head>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
   /* General Styles */
   body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', 'Arial', sans-serif;
     background-color: #f0f4f8;
     color: #333;
   }
 
+  ul.errorlist {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    color: #ff0000;
+  }
+  ul.errorlist li {
+    margin: 5px 0;
+    font-size: 14px;
+  }
+  /* Header Styles */
   .header {
     display: flex;
     justify-content: space-between;
@@ -24,6 +37,7 @@
     color: white;
     position: relative;
     z-index: 10;
+    height: 70px;
   }
 
   .logo {
@@ -261,15 +275,15 @@
 </style>
 <body>
     <header class="header">
-        <div class="logo">Husenteet!</div>
+        <div class="logo">JustWhisp</div>
         <nav class="nav">
-            <a href="/login" class="nav-link">Login</a>
-            <a href="/signup" class="nav-link">Sign Up</a>
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+            <a href="{% url 'register' %}" class="nav-link">Sign Up</a>
         </nav>
         <button class="menu-toggle">Menu</button>
         <div class="menu">
-            <a href="/login" class="menu-link">Login</a>
-            <a href="/signup" class="menu-link">Sign Up</a>
+            <a href="{% url 'login' %}" class="menu-link">Login</a>
+            <a href="{% url 'register' %}" class="menu-link">Sign Up</a>
         </div>
     </header>
         

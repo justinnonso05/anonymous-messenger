@@ -3,14 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Husenteet</title>
+    <title>JustWhisp | Send Message</title>
 </head>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
   /* General Styles */
   body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Poppins', 'Arial', sans-serif;
     background-color: #f0f4f8;
     color: #333;
   }
@@ -24,13 +26,14 @@
     color: white;
     position: relative;
     z-index: 10;
+    height: 70px;
   }
   @media (max-width: 767px) {
-        header {
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-        }
+    header {
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
     }
+  }
   .logo {
     font-size: 24px;
     font-weight: bold;
@@ -458,15 +461,23 @@
 </style>
 <body>
     <header class="header">
-        <div class="logo">Husenteet!</div>
+        <div class="logo">JustWhisp</div>
         <nav class="nav">
-            <a href="/login" class="nav-link">Login</a>
-            <a href="/signup" class="nav-link">Sign Up</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+            <a href="{% url 'register' %}" class="nav-link">Sign Up</a>
+          {% endif %}
         </nav>
         <button class="menu-toggle">☰</button>
         <div class="menu">
-            <a href="/login" class="menu-link">Login</a>
-            <a href="/signup" class="menu-link">Sign Up</a>
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="menu-link">Logout</a>
+          {% else %}
+            <a href="{% url 'login' %}" class="menu-link">Login</a>
+            <a href="{% url 'register' %}" class="menu-link">Sign Up</a>
+          {% endif %}
         </div>
     </header>
         
@@ -490,14 +501,14 @@
         <form method="POST">
             <h2>Send an anonymous message to {{ recipient.username }}</h2>
             {% csrf_token %}
-            <textarea id="text_message" name="content" placeholder="Write your anonymous message here... Be kind!" rows="6" required></textarea>
+            <textarea id="text_message" name="content" placeholder="Write your anonymous message here... " rows="6" required></textarea>
             <button id="sendBtn" type="submit">Send Message</button>
         </form>
         
         <div class="signup-banner">
             <h3>Want to receive anonymous messages too?</h3>
             <p>Create your own profile and share your personal link with friends to start receiving anonymous messages, compliments, and honest feedback!</p>
-            <a href="/signup" class="signup-btn">Sign Up Free</a>
+            <a href="{% url 'register' %}" class="signup-btn">Sign Up Free</a>
         </div>
         
         <div class="features">
@@ -509,7 +520,7 @@
             <div class="feature">
                 <div class="feature-icon">📱</div>
                 <h4>Works Everywhere</h4>
-                <p>Use Husenteet on any device, anytime, anywhere.</p>
+                <p>Use JustWhisp on any device, anytime, anywhere.</p>
             </div>
             <div class="feature">
                 <div class="feature-icon">🚀</div>

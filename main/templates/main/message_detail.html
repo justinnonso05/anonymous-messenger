@@ -1,8 +1,10 @@
 {% extends "main/base.html" %}
 {% block content %}
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
     body {
-        font-family: 'Arial', sans-serif;
+        font-family: 'Poppins', 'Arial', sans-serif;
         background: linear-gradient(135deg, #dfe1e8, #ffffff, #e4e2f8);
         background-size: 400% 400%;
         animation: gradientAnimation 10s ease infinite;
@@ -25,6 +27,12 @@
         position: fixed;
         z-index: 10;
         height: 70px;
+    }
+    @media (max-width: 767px) {
+        header {
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
     }
     .logo {
         font-size: 24px;
@@ -162,7 +170,7 @@
     }
 </style>
 <header class="header">
-    <div class="logo">Husenteet!</div>
+    <div class="logo">JustWhisp</div>
     <nav class="nav">
         <a href="{% url 'logout' %}" class="nav-link">Logout</a>
     </nav>
