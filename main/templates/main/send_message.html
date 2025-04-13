@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JustWhisp | Send Message</title>
+    <title>Anon | Send Message</title>
 </head>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -17,11 +18,21 @@
     color: #333;
   }
 
+  .header .logo img {
+    height: 230px; 
+    width: auto;
+    display: block; 
+    margin: 0;
+    padding: 0; 
+    margin-right: -50px;
+    position: relative;
+    left: -60px;
+  }
+
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 16px;
     background-color: #293368;
     color: white;
     position: relative;
@@ -461,7 +472,7 @@
 </style>
 <body>
     <header class="header">
-        <div class="logo">JustWhisp</div>
+      <div class="logo"><img src="{% static 'main/logo.png' %}" alt="logo" class="logo"></div>
         <nav class="nav">
           {% if user.is_authenticated %}
             <a href="{% url 'logout' %}" class="nav-link">Logout</a>
@@ -499,11 +510,12 @@
         {% endif %} 
         
         <form method="POST">
-            <h2>Send an anonymous message to {{ recipient.username }}</h2>
-            {% csrf_token %}
-            <textarea id="text_message" name="content" placeholder="Write your anonymous message here... " rows="6" required></textarea>
-            <button id="sendBtn" type="submit">Send Message</button>
-        </form>
+          <h2>Send an anonymous message to {{ recipient.username }}</h2>
+          {% csrf_token %}
+          <textarea id="text_message" name="content" placeholder="Write your anonymous message here..." rows="6" maxlength="500" required></textarea>
+          <p id="char_count">500 characters remaining</p>
+          <button id="sendBtn" type="submit">Send Message</button>
+      </form>
         
         <div class="signup-banner">
             <h3>Want to receive anonymous messages too?</h3>
@@ -520,7 +532,7 @@
             <div class="feature">
                 <div class="feature-icon">📱</div>
                 <h4>Works Everywhere</h4>
-                <p>Use JustWhisp on any device, anytime, anywhere.</p>
+                <p>Use Anon on any device, anytime, anywhere.</p>
             </div>
             <div class="feature">
                 <div class="feature-icon">🚀</div>
@@ -539,5 +551,21 @@
             menu.classList.toggle('open');
         });
     </script>
+
+  <script>
+    const textarea = document.getElementById('text_message');
+    const charCount = document.getElementById('char_count');
+    const maxLength = 500;
+
+    textarea.addEventListener('input', () => {
+        const remaining = maxLength - textarea.value.length;
+        charCount.textContent = `${remaining} characters remaining`;
+
+        if (remaining <= 0) {
+            textarea.value = textarea.value.substring(0, maxLength);
+            charCount.textContent = `0 characters remaining`;
+        }
+    });
+  </script>
 </body>
 </html>

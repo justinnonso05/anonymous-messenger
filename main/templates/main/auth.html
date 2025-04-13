@@ -1,9 +1,10 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JustWhisp | Welcome</title>
+    <title>Anon | Welcome</title>
 </head>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
@@ -16,6 +17,17 @@
     background-color: #f0f4f8;
     color: #333;
   }
+
+  .header .logo img {
+      height: 230px; 
+      width: auto;
+      display: block; 
+      margin: 0;
+      padding: 0; 
+      margin-right: -50px;
+      position: relative;
+      left: -60px;
+  }  
 
   .header {
     display: flex;
@@ -55,9 +67,12 @@
     display: none;
     background: none;
     border: none;
+    margin-right: 5px;
+    border-radius: 5px;
     font-size: 24px;
     color: white;
     cursor: pointer;
+    width: 60px;
   }
 
   .menu {
@@ -198,12 +213,12 @@
 </style>
 <body>
       <header class="header">
-        <div class="logo">JustWhisp</div>
+        <div class="logo"><img src="{% static 'main/logo.png' %}" alt="logo" class="logo"></div>
         <nav class="nav">
           <a href="{% url 'login' %}" class="nav-link">Login</a>
           <a href="{% url 'register' %}" class="nav-link">Sign Up</a>
         </nav>
-        <button class="menu-toggle">Menu</button>
+        <button class="menu-toggle">☰</button>
         <div class="menu">
           <a href="{% url 'login' %}" class="menu-link">Login</a>
           <a href="{% url 'register' %}" class="menu-link">Sign Up</a>
@@ -214,7 +229,7 @@
       
       <div class="background-animation"></div>
       <div class="container">
-        <h1>Welcome to JustWhisp!</h1>
+        <h1>Welcome to Anon!</h1>
         <p>Send and receive anonymous messages with ease. Connect with others while keeping your identity private.</p>
         <div class="button-container">
           <a href="{% url 'login' %}">Login</a>
