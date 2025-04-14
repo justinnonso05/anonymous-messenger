@@ -1,82 +1,27 @@
 {% extends "main/base.html" %}
 {% load static %}
-{% block content %}
+
+{% block title %}View Message{% endblock %}
+
+{% block nav_links %}
+    <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+{% endblock nav_links %}
+
+{% block menu_links %}
+    <a href="{% url 'logout' %}" class="menu-link">Logout</a>
+{% endblock menu_links %}
+
+{% block styles %}
+{{ block.super }}
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-    body {
-        font-family: 'Poppins', 'Arial', sans-serif;
-        background: linear-gradient(135deg, #dfe1e8, #ffffff, #e4e2f8);
-        background-size: 400% 400%;
-        animation: gradientAnimation 10s ease infinite;
-        margin: 0;
-        padding-top: 80px;
-    }
-    @keyframes gradientAnimation {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
-        100% { background-position: 0% 50%; }
-    }
-
-    .header .logo img {
-        height: 230px; 
-        width: auto;
-        display: block; 
-        margin: 0;
-        padding: 0; 
-        margin-right: -50px;
-        position: relative;
-        left: -60px;
-    }
-
-    header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        top: 0;
-        background-color: #293368;
-        color: white;
-        position: fixed;
-        z-index: 10;
-        height: 70px;
-    }
-    @media (max-width: 767px) {
-        header {
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
-        }
-    }
-    .logo {
-        font-size: 24px;
-        padding-left: 20px;
-        font-weight: bold;
-        color: #d5d3e9;
-    }
-    .nav {
-        display: flex;
-        padding-right: 20px;
-    }
-    .nav-link {
-        color: white;
-        text-decoration: none;
-        margin-left: 15px;
-        font-size: 18px;
-        transition: all 0.3s ease;
-    }
-    .nav-link:hover {
-        color: #d5d3e9;
-        transform: translateY(-2px);
-    }
-    .menu-toggle {
-        display: none;
-    }
     .message-wrapper {
         display: flex;
         justify-content: center;
         align-items: center;
         min-height: calc(100vh - 70px);
+        padding-top: 70px;
     }
+    
     .message-con {
         background-color: #293368;
         padding: 25px;
@@ -88,20 +33,24 @@
         position: relative;
         transition: transform 0.3s ease;
     }
+    
     .message-con:hover {
         transform: translateY(-5px);
     }
+    
     .msg-head {
         text-align: center;
         margin-bottom: 15px;
         padding-bottom: 10px;
         border-bottom: 1px solid rgba(255,255,255,0.2);
     }
+    
     .msg-head .title {
         font-size: 22px;
         font-weight: bold;
         color: #d5d3e9;
     }
+    
     .message {
         background-color: #f9f9f9;
         padding: 20px;
@@ -111,20 +60,24 @@
         position: relative;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
+    
     .message small {
         display: block;
         color: #888;
         font-size: 12px;
         margin-bottom: 10px;
     }
+    
     .message p {
         line-height: 1.5;
     }
+    
     .action-buttons {
         display: flex;
         justify-content: space-between;
         margin-top: 15px;
     }
+    
     .btn {
         padding: 8px 12px;
         border-radius: 4px;
@@ -136,41 +89,50 @@
         align-items: center;
         gap: 5px;
     }
+    
     .btn-primary {
         background-color: #4854a2;
         color: white;
     }
+    
     .btn-outline {
         background-color: transparent;
         border: 1px solid #4854a2;
         color: #4854a2;
     }
+    
     .btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
+    
     .camera-icon {
         cursor: pointer;
         font-size: 20px;
         color: #4854a2;
     }
+    
     .camera-icon:hover {
         transform: scale(1.2);
     }
+    
     .reactions {
         display: flex;
         gap: 10px;
         margin-top: 15px;
         justify-content: center;
     }
+    
     .reaction {
         cursor: pointer;
         font-size: 18px;
         transition: transform 0.2s ease;
     }
+    
     .reaction:hover {
         transform: scale(1.3);
     }
+    
     @media (max-width: 768px) {
         .action-buttons {
             flex-direction: column;
@@ -182,12 +144,9 @@
         }
     }
 </style>
-<header class="header">
-    <div class="logo"><img src="{% static 'main/logo.png' %}" alt="logo" class="logo"></div>
-    <nav class="nav">
-        <a href="{% url 'logout' %}" class="nav-link">Logout</a>
-    </nav>
-</header>
+{% endblock styles %}
+
+{% block content %}
 <div class="message-wrapper">
     <div class="message-con">
         <div class="msg-head"><span class="title">Anonymous Message</span></div>
@@ -211,7 +170,10 @@
         </div>
     </div>
 </div>
+{% endblock content %}
 
+{% block scripts %}
+{{ block.super }}
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 <script>
     function captureSnapshot(element) {
@@ -241,4 +203,4 @@
         });
     });
 </script>
-{% endblock content %}
+{% endblock scripts %}

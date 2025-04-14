@@ -7,28 +7,333 @@
     <meta name="description" content="Anon is a secure and anonymous messenger platform where you can express yourself freely without revealing your identity.">
     <meta name="keywords" content="anonymous chat, secure messaging, private messenger, anon, no login messaging">
     <meta name="author" content="Justin Chinonso">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="{% static 'main/favicon-96x96.png' %}" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="{% static 'main/favicon.svg' %}" />
     <link rel="shortcut icon" href="{% static 'main/favicon.ico' %}" />
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'main/apple-touch-icon.png' %}" />
     <meta name="apple-mobile-web-app-title" content="Anon" />
     <link rel="manifest" href="{% static 'main/site.webmanifest' %}" />
-    <title>Anon | Anonymous Messenger</title>
+    <title>Anon | {% block title %}Anonymous Messenger{% endblock %}</title>
+    {% block styles %}
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', 'Arial', sans-serif;
+            color: #333;
+            min-height: 100vh;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Background Animation */
+        body {
+            background: linear-gradient(135deg, #dfe1e8, #ffffff, #e4e2f8);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s ease infinite;
+        }
+
+        @keyframes gradientAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Header Styles */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* padding: 0 15px; */
+            background-color: #293368;
+            color: white;
+            position: relative;
+            z-index: 10;
+            height: 70px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header .logo img {
+            height: 230px; 
+            width: auto;
+            display: block; 
+            margin: 0;
+            padding: 0; 
+            margin-right: -50px;
+            position: relative;
+            left: -60px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #d5d3e9;
+        }
+
+        .nav {
+            display: none;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #d5d3e9;
+            text-decoration: underline;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            margin-right: 5px;
+            border-radius: 5px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            width: 60px;
+        }
+
+        .menu {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            right: 15px;
+            background-color: #293368;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-link {
+            color: white;
+            text-decoration: none;
+            margin: 10px 0;
+            font-size: 18px;
+            transition: color 0.3s;
+            padding: 5px 15px;
+        }
+
+        .menu-link:hover {
+            color: #d5d3e9;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+
+        /* Desktop View */
+        @media (min-width: 768px) {
+            .nav {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .menu {
+                display: none;
+            }
+        }
+
+        /* Mobile View */
+        @media (max-width: 767px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .menu.open {
+                display: flex;
+            }
+            
+            .header {
+                border-bottom-left-radius: 20px;
+                border-bottom-right-radius: 20px;
+            }
+        }
+
+        /* Page Loader Styles */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+
+        .page-loader.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #293368;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Fade-out animation for the content when navigating away */
+        .content-wrapper {
+            transition: opacity 0.3s ease;
+        }
+
+        .content-wrapper.fade-out {
+            opacity: 0.6;
+        }
+    </style>
+    {% endblock styles %}
 </head>
 <body>
-    {% block content %}{% endblock %}
+    <!-- Page Loader -->
+    <div class="page-loader" id="pageLoader">
+        <div class="loader"></div>
+    </div>
+
+    {% block header %}
+    <header class="header">
+        <div class="logo"><img src="{% static 'main/logo.png' %}" alt="logo" class="logo"></div>
+        <nav class="nav">
+            {% block nav_links %}{% endblock nav_links %}
+        </nav>
+        <button class="menu-toggle">☰</button>
+        <div class="menu">
+            {% block menu_links %}{% endblock menu_links %}
+        </div>
+    </header>
+    {% endblock header %}
+
+    <div class="content-wrapper" id="contentWrapper">
+        {% block content %}{% endblock content %}
+    </div>
+
+    {% block scripts %}
     <script>
-        if ('serviceWorker' in navigator) {
-          window.addEventListener('load', function() {
-            navigator.serviceWorker.register("{% static 'main/sw.js' %}")
-              .then(function(registration) {
-                console.log('Service Worker registered with scope:', registration.scope);
-              }, function(err) {
-                console.log('Service Worker registration failed:', err);
-              });
-          });
+        // Page Loader
+        const pageLoader = document.getElementById('pageLoader');
+        const contentWrapper = document.getElementById('contentWrapper');
+        
+        // Function to show loader
+        function showLoader() {
+            pageLoader.classList.add('active');
+            contentWrapper.classList.add('fade-out');
         }
-      </script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loader when page is fully loaded
+            pageLoader.classList.remove('active');
+            contentWrapper.classList.remove('fade-out');
+            
+            // Handle all link clicks for navigation
+            document.addEventListener('click', function(e) {
+                // Handle links
+                const linkTarget = e.target.closest('a');
+                if (linkTarget && !e.ctrlKey && !e.metaKey && !e.shiftKey && linkTarget.href && 
+                    linkTarget.href.indexOf('#') === -1 && 
+                    linkTarget.href.indexOf('mailto:') === -1 &&
+                    linkTarget.href.indexOf('tel:') === -1 &&
+                    !linkTarget.getAttribute('download') &&
+                    linkTarget.getAttribute('target') !== '_blank' &&
+                    !linkTarget.hasAttribute('data-no-loader')) {
+                    
+                    e.preventDefault();
+                    showLoader();
+                    
+                    setTimeout(function() {
+                        window.location.href = linkTarget.href;
+                    }, 300);
+                }
+                
+                // Handle buttons with data-url attribute
+                const buttonTarget = e.target.closest('button[data-url]');
+                if (buttonTarget && !buttonTarget.hasAttribute('data-no-loader')) {
+                    e.preventDefault();
+                    showLoader();
+                    
+                    setTimeout(function() {
+                        window.location.href = buttonTarget.getAttribute('data-url');
+                    }, 300);
+                }
+                
+                // Handle elements with onclick="view(this)" or similar navigation functions
+                const viewTarget = e.target.closest('[data-url]');
+                if (viewTarget && !viewTarget.hasAttribute('data-no-loader') && 
+                    viewTarget.tagName !== 'BUTTON' && viewTarget.tagName !== 'A') {
+                    // Don't prevent default here as we want the original onclick to execute
+                    showLoader();
+                }
+            });
+            
+            // Also handle form submissions
+            document.addEventListener('submit', function(e) {
+                const form = e.target;
+                if (!form.hasAttribute('data-no-loader')) {
+                    showLoader();
+                }
+            });
+        });
+        
+        // Show loader when navigating with browser back/forward buttons
+        window.addEventListener('beforeunload', function() {
+            showLoader();
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const menu = document.querySelector('.menu');
+
+        menuToggle.addEventListener('click', function(event) {
+            menu.classList.toggle('open');
+            event.stopPropagation();
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const menu = document.querySelector('.menu');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (menu.classList.contains('open') && 
+                !event.target.closest('.menu') && 
+                event.target !== menuToggle) {
+                menu.classList.remove('open');
+            }
+        });
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register("{% static 'main/sw.js' %}")
+                    .then(function(registration) {
+                        console.log('Service Worker registered with scope:', registration.scope);
+                    }, function(err) {
+                        console.log('Service Worker registration failed:', err);
+                    });
+            });
+        }
+    </script>
+    {% endblock scripts %}
 </body>
 </html>

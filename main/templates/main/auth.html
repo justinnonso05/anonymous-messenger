@@ -1,272 +1,92 @@
+{% extends "main/base.html" %}
+
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
-    <meta name="description" content="Anon is a secure and anonymous messenger platform where you can express yourself freely without revealing your identity.">
-    <meta name="keywords" content="anonymous chat, secure messaging, private messenger, anon, no login messaging">
-    <meta name="author" content="Justin Chinonso">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{% static 'main/favicon-96x96.png' %}" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="{% static 'main/favicon.svg' %}" />
-    <link rel="shortcut icon" href="{% static 'main/favicon.ico' %}" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'main/apple-touch-icon.png' %}" />
-    <meta name="apple-mobile-web-app-title" content="Anon" />
-    <link rel="manifest" href="{% static 'main/site.webmanifest' %}" />
-    <title>Anon | Welcome</title>
-</head>
+
+{% block title %}Welcome{% endblock %}
+
+{% block styles %}
+{{ block.super }}
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-  /* General Styles */
-  body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', 'Arial', sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
-  }
-
-  .header .logo img {
-      height: 230px; 
-      width: auto;
-      display: block; 
-      margin: 0;
-      padding: 0; 
-      margin-right: -50px;
-      position: relative;
-      left: -60px;
-  }  
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 15px;
-    background-color: #293368;
-    color: white;
-    position: relative;
-    z-index: 10;
-    height: 70px;
-  }
-
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #d5d3e9;
-  }
-
-  .nav {
-    display: none;
-  }
-
-  .nav-link {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 18px;
-    transition: color 0.3s;
-  }
-
-  .nav-link:hover {
-    color: #293368e3;
-  }
-
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    margin-right: 5px;
-    border-radius: 5px;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-    width: 60px;
-  }
-
-  .menu {
-    display: none;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    right: 20px;
-    background-color: #293368;
-    padding: 10px;
-    border-radius: 8px;
-  }
-
-  .menu-link {
-    color: white;
-    text-decoration: none;
-    margin: 10px 0;
-    font-size: 18px;
-    transition: color 0.3s;
-  }
-
-  .menu-link:hover {
-    color: #293368e3;
-  }
-
-  /* Desktop View */
-  @media (min-width: 768px) {
-    .nav {
-      display: flex;
+    /* Container Styles */
+    .container {
+        text-align: center;
+        padding: 100px 20px;
+        z-index: 5;
+        position: relative;
     }
 
-    .menu-toggle {
-      display: none;
+    h1 {
+        font-size: 48px;
+        color: #293368;
+        animation: fadeInDown 1s ease-out;
     }
 
-    .menu {
-      display: none;
-    }
-  }
-
-  /* Mobile View */
-  @media (max-width: 767px) {
-    .menu-toggle {
-      display: block;
+    p {
+        font-size: 18px;
+        color: #555;
+        margin-top: 20px;
+        animation: fadeInUp 1s ease-out;
     }
 
-    .menu.open {
-      display: flex;
+    .button-container a {
+        display: inline-block;
+        padding: 10px 20px;
+        margin: 20px 10px;
+        font-size: 18px;
+        color: white;
+        background-color: #293368;
+        border-radius: 30px;
+        text-decoration: none;
+        transition: background-color 0.3s, transform 0.3s;
     }
-  }
 
-  /* Container Styles */
-  .container {
-    text-align: center;
-    padding: 100px 20px;
-    z-index: 5;
-    position: relative;
-  }
-
-  h1 {
-    font-size: 48px;
-    color: #293368;
-    animation: fadeInDown 1s ease-out;
-  }
-
-  p {
-    font-size: 18px;
-    color: #555;
-    margin-top: 20px;
-    animation: fadeInUp 1s ease-out;
-  }
-
-  .button-container a {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 20px 10px;
-    font-size: 18px;
-    color: white;
-    background-color: #293368;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-
-  .button-container a:hover {
-    background-color: #293368e3;
-    transform: translateY(-5px);
-  }
-
-  /* Background Animation */
-  .background-animation {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #dfe1e8, #ffffff,  #e4e2f8);
-    background-size: 400% 400%;
-    animation: gradientAnimation 10s ease infinite;
-    z-index: 1;
-    opacity: 0.6;
-  }
-
-  @keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* Text Animations */
-  @keyframes fadeInDown {
-    0% {
-      opacity: 0;
-      transform: translateY(-50px);
+    .button-container a:hover {
+        background-color: #293368e3;
+        transform: translateY(-5px);
     }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(50px);
+    /* Text Animations */
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @media (max-width: 767px) {
-        header {
-            border-bottom-left-radius: 20px;
-            border-bottom-right-radius: 20px;
+
+    @keyframes fadeInUp {
+        0% {
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 </style>
-<body>
-  <header class="header">
-    <div class="logo"><img src="{% static 'main/logo.png' %}" alt="logo" class="logo"></div>
-    <nav class="nav">
-      <a href="{% url 'login' %}" class="nav-link">Login</a>
-      <a href="{% url 'register' %}" class="nav-link">Sign Up</a>
-    </nav>
-    <button class="menu-toggle">☰</button>
-    <div class="menu">
-      <a href="{% url 'login' %}" class="menu-link">Login</a>
-      <a href="{% url 'register' %}" class="menu-link">Sign Up</a>
-    </div>
-  </header>
+{% endblock styles %}
 
-    
-  
-  <div class="background-animation"></div>
-  <div class="container">
-    <h1>Welcome to Anon!</h1>
-    <p>Send and receive anonymous messages with ease. Connect with others while keeping your identity private.</p>
-    <div class="button-container">
-      <a href="{% url 'login' %}">Login</a>
-      <a href="{% url 'register' %}">Sign Up</a>
-    </div>
-  </div>
-  
-  <script>
-    const menuToggle = document.querySelector('.menu-toggle');
-    const menu = document.querySelector('.menu');
+{% block nav_links %}
+    <a href="{% url 'login' %}" class="nav-link">Login</a>
+    <a href="{% url 'register' %}" class="nav-link">Sign Up</a>
+{% endblock nav_links %}
 
-    menuToggle.addEventListener('click', () => {
-      menu.classList.toggle('open');
-    });
-  </script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register("{% static 'main/sw.js' %}")
-          .then(function(registration) {
-            console.log('Service Worker registered with scope:', registration.scope);
-          }, function(err) {
-            console.log('Service Worker registration failed:', err);
-          });
-      });
-    }
-  </script>
-</body>
-</html>
+{% block menu_links %}
+    <a href="{% url 'login' %}" class="menu-link">Login</a>
+    <a href="{% url 'register' %}" class="menu-link">Sign Up</a>
+{% endblock menu_links %}
+
+{% block content %}
+    <div class="container">
+        <h1>Welcome to Anon!</h1>
+        <p>Send and receive anonymous messages with ease. Connect with others while keeping your identity private.</p>
+        <div class="button-container">
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Sign Up</a>
+        </div>
+    </div>
+{% endblock content %}

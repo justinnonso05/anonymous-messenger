@@ -1,237 +1,89 @@
+{% extends "main/base.html" %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Anon is a secure and anonymous messenger platform where you can express yourself freely without revealing your identity.">
-    <meta name="keywords" content="anonymous chat, secure messaging, private messenger, anon, no login messaging">
-    <meta name="author" content="Justin Chinonso">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="{% static 'main/favicon-96x96.png' %}" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="{% static 'main/favicon.svg' %}" />
-    <link rel="shortcut icon" href="{% static 'main/favicon.ico' %}" />
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'main/apple-touch-icon.png' %}" />
-    <meta name="apple-mobile-web-app-title" content="Anon" />
-    <link rel="manifest" href="{% static 'main/site.webmanifest' %}" />
-    <title>Anon | Send Message</title>
-</head>
+
+{% block title %}Send Message{% endblock %}
+
+{% block nav_links %}
+{% if user.is_authenticated %}
+  <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+{% else %}
+  <a href="{% url 'login' %}" class="nav-link">Login</a>
+  <a href="{% url 'register' %}" class="nav-link">Sign Up</a>
+{% endif %}
+{% endblock nav_links %}
+
+{% block menu_links %}
+{% if user.is_authenticated %}
+  <a href="{% url 'logout' %}" class="menu-link">Logout</a>
+{% else %}
+  <a href="{% url 'login' %}" class="menu-link">Login</a>
+  <a href="{% url 'register' %}" class="menu-link">Sign Up</a>
+{% endif %}
+{% endblock menu_links %}
+
+{% block styles %}
+{{ block.super }}
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
-  /* General Styles */
-  body, html {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', 'Arial', sans-serif;
-    background-color: #f0f4f8;
-    color: #333;
-  }
-
-  .header .logo img {
-    height: 230px; 
-    width: auto;
-    display: block; 
-    margin: 0;
-    padding: 0; 
-    margin-right: -50px;
-    position: relative;
-    left: -60px;
-  }
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #293368;
-    color: white;
-    position: relative;
-    z-index: 10;
-    height: 70px;
-  }
-  @media (max-width: 767px) {
-    header {
-        border-bottom-left-radius: 20px;
-        border-bottom-right-radius: 20px;
-    }
-  }
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #d5d3e9;
-  }
-
-  .nav {
-    display: none;
-  }
-
-  .nav-link {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 18px;
-    transition: color 0.3s;
-  }
-
-  .nav-link:hover {
-    color: #ff4b2b;
-  }
-
-  .menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-  }
-
-  .menu {
-    display: none;
-    flex-direction: column;
+  .message-example {
     position: absolute;
-    top: 100%;
-    right: 20px;
+    width: 200px;
     background-color: #293368;
-    padding: 10px;
-    border-radius: 8px;
-  }
-
-  .menu-link {
     color: white;
-    text-decoration: none;
-    margin: 10px 0;
-    font-size: 18px;
-    transition: color 0.3s;
-  }
-
-  .menu-link:hover {
-    color: #d5d3e9;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 5px 10px;
-    border-radius: 4px;
-    margin: 5px -10px;
-  }
-
-  /* Desktop View */
-  @media (min-width: 768px) {
-    .nav {
-      display: flex;
-    }
-
-    .menu-toggle {
-      display: none;
-    }
-
-    .menu {
-      display: none;
-    }
-  }
-
-  /* Mobile View */
-  @media (max-width: 767px) {
-    .menu-toggle {
-      display: block;
-    }
-
-    .menu.open {
-      display: flex;
-    }
-  }
-
-  /* Container Styles */
-  .container {
-    text-align: center;
-    padding: 60px 20px;
-    z-index: 5;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
-    justify-content: center;
-    justify-items: center;
-    position: relative;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  h1 {
-    font-size: 48px;
-    color: #283e4a;
-    animation: fadeInDown 1s ease-out;
-  }
-
-  p {
-    font-size: 18px;
-    color: #555;
-    margin-top: 20px;
-    animation: fadeInUp 1s ease-out;
-  }
-
-  .button-container a {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 20px 10px;
-    font-size: 18px;
-    color: white;
-    background-color: #293368;
-    border-radius: 30px;
-    text-decoration: none;
-    transition: background-color 0.3s, transform 0.3s;
-  }
-
-  .button-container a:hover {
-    background-color: #293368e3;
-    transform: translateY(-5px);
-  }
-
-  /* Background Animation */
-  .background-animation {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, #dfe1e8, #ffffff,  #e4e2f8);
-    background-size: 400% 400%;
-    animation: gradientAnimation 10s ease infinite;
-    z-index: 1;
-    opacity: 0.6;
-  }
-
-  @keyframes gradientAnimation {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  /* Text Animations */
-  @keyframes fadeInDown {
-    0% {
-      opacity: 0;
-      transform: translateY(-50px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(50px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 14px;
+    opacity: 0;
+    animation: float 6s ease-in-out infinite, fadeIn 1s ease-in-out forwards;
+    animation-delay: 1s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    z-index: 2;
   }
   
-  h2 {
-    color: #333;
+  .message-example:nth-child(odd) {
+    right: 10%;
+    top: 25%;
+  }
+  
+  .message-example:nth-child(even) {
+    left: 10%;
+    top: 40%;
+  }
+  
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+    100% { transform: translateY(0px); }
+  }
+  
+  #sent {
+    background-color: #293368;
+    display: flex;
     text-align: center;
-    margin-bottom: 20px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 8px 20px;
+    position: absolute;
+    top: -220px;
+    align-self: center;
+    z-index: 88;
+    animation-duration: 6s;
+    animation-iteration-count: 1;
+    animation-name: sent;
+  }
+  
+  #sent p {
+    color: #d5d3e9;
+    font-weight: 700;
+    margin: 0;
+  } 
+  
+  @keyframes sent {
+    0% {top:-220px}
+    10% {top:20px}
+    90% {top:20px}
+    100% {top:-220px}
   }
   
   form {
@@ -243,7 +95,7 @@
     max-width: 450px;
     width: 100%;
     animation: fadeIn 0.5s ease-in;
-    box-sizing: border-box; /* Ensures padding is included in total width */
+    box-sizing: border-box;
     border: 1px solid rgba(211, 211, 255, 0.3);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
@@ -299,52 +151,6 @@
     box-shadow: 0 4px 10px rgba(41, 51, 104, 0.2);
   }
   
-  #sent {
-    background-color: #293368;
-    display: flex;
-    text-align: center;
-    align-items: center;
-    align-content: center;
-    justify-content: center;
-    justify-items: center;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    padding: 8px 20px;
-    position: absolute;
-    top: -220px;
-    align-self: center;
-    justify-self: center;
-    z-index: 88;
-    animation-duration: 6s;
-    animation-iteration-count: 1;
-    animation-name: sent;
-  }
-  
-  #sent p {
-    color: #d5d3e9;
-    font-weight: 700;
-    margin: 0;
-  } 
-  
-  @keyframes sent {
-    0% {top:-220px}
-    10% {top:20px}
-    90% {top:20px}
-    100% {top:-220px}
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  /* New Styles for Added Features */
   .signup-banner {
     background: linear-gradient(45deg, #293368, #4854a2);
     border-radius: 12px;
@@ -436,37 +242,6 @@
     line-height: 1.5;
   }
   
-  .message-example {
-    position: absolute;
-    width: 200px;
-    background-color: #293368;
-    color: white;
-    padding: 15px;
-    border-radius: 10px;
-    font-size: 14px;
-    opacity: 0;
-    animation: float 6s ease-in-out infinite, fadeIn 1s ease-in-out forwards;
-    animation-delay: 1s;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
-    z-index: 2;
-  }
-  
-  .message-example:nth-child(odd) {
-    right: 10%;
-    top: 25%;
-  }
-  
-  .message-example:nth-child(even) {
-    left: 10%;
-    top: 40%;
-  }
-  
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0px); }
-  }
-  
   @media (max-width: 768px) {
     .features {
       flex-direction: column;
@@ -480,114 +255,73 @@
     }
   }
 </style>
-<body>
-    <header class="header">
-      <div class="logo"><img src="{% static 'main/logo.png' %}" alt="logo" class="logo"></div>
-        <nav class="nav">
-          {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
-          {% else %}
-            <a href="{% url 'login' %}" class="nav-link">Login</a>
-            <a href="{% url 'register' %}" class="nav-link">Sign Up</a>
-          {% endif %}
-        </nav>
-        <button class="menu-toggle">☰</button>
-        <div class="menu">
-          {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}" class="menu-link">Logout</a>
-          {% else %}
-            <a href="{% url 'login' %}" class="menu-link">Login</a>
-            <a href="{% url 'register' %}" class="menu-link">Sign Up</a>
-          {% endif %}
-        </div>
-    </header>
-        
-    <div class="background-animation"></div>
+{% endblock styles %}
+
+{% block content %}
+<!-- Floating message examples -->
+<div class="message-example">
+    "Thank you for the advice! You're always so helpful 😊"
+</div>
+<div class="message-example">
+    "I've been wanting to tell you this for a while... you're awesome!"
+</div>
+
+<div class="container" style="text-align: center; padding: 60px 20px; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; max-width: 1200px; margin: 0 auto;">
+    {% if messages %}
+      {% for message in messages %}
+        <div id="sent"><p>{{ message }}</p></div>
+      {% endfor %}
+    {% endif %} 
     
-    <!-- Floating message examples -->
-    <div class="message-example">
-        "Thank you for the advice! You're always so helpful 😊"
-    </div>
-    <div class="message-example">
-        "I've been wanting to tell you this for a while... you're awesome!"
-    </div>
+    <form method="POST">
+      <h2>Send an anonymous message to {{ recipient.username }}</h2>
+      {% csrf_token %}
+      <textarea id="text_message" name="content" placeholder="Write your anonymous message here..." rows="6" maxlength="500" required></textarea>
+      <p id="char_count">500 characters remaining</p>
+      <button id="sendBtn" type="submit">Send Message</button>
+    </form>
     
-    <div class="container">
-        {% if messages %}
-          {% for message in messages %}
-            <div id="sent"><p>{{ message }}</p></div>
-          {% endfor %}
-        {% endif %} 
-        
-        <form method="POST">
-          <h2>Send an anonymous message to {{ recipient.username }}</h2>
-          {% csrf_token %}
-          <textarea id="text_message" name="content" placeholder="Write your anonymous message here..." rows="6" maxlength="500" required></textarea>
-          <p id="char_count">500 characters remaining</p>
-          <button id="sendBtn" type="submit">Send Message</button>
-      </form>
-        
-        <div class="signup-banner">
-            <h3>Want to receive anonymous messages too?</h3>
-            <p>Create your own profile and share your personal link with friends to start receiving anonymous messages, compliments, and honest feedback!</p>
-            <a href="{% url 'register' %}" class="signup-btn">Sign Up Free</a>
-        </div>
-        
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">🔒</div>
-                <h4>Complete Privacy</h4>
-                <p>All messages are 100% anonymous. Your identity is never revealed.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📱</div>
-                <h4>Works Everywhere</h4>
-                <p>Use Anon on any device, anytime, anywhere.</p>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🚀</div>
-                <h4>Easy to Share</h4>
-                <p>Generate your unique link and share it on social media.</p>
-            </div>
-        </div>
+    <div class="signup-banner">
+        <h3>Want to receive anonymous messages too?</h3>
+        <p>Create your own profile and share your personal link with friends to start receiving anonymous messages, compliments, and honest feedback!</p>
+        <a href="{% url 'register' %}" class="signup-btn">Sign Up Free</a>
     </div>
     
-    <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const menu = document.querySelector('.menu');
-        const btn = document.getElementById("sendBtn");
+    <div class="features">
+        <div class="feature">
+            <div class="feature-icon">🔒</div>
+            <h4>Complete Privacy</h4>
+            <p>All messages are 100% anonymous. Your identity is never revealed.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">📱</div>
+            <h4>Works Everywhere</h4>
+            <p>Use Anon on any device, anytime, anywhere.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">🚀</div>
+            <h4>Easy to Share</h4>
+            <p>Generate your unique link and share it on social media.</p>
+        </div>
+    </div>
+</div>
+{% endblock content %}
 
-        menuToggle.addEventListener('click', () => {
-            menu.classList.toggle('open');
-        });
-    </script>
+{% block scripts %}
+{{ block.super }}
+<script>
+  const textarea = document.getElementById('text_message');
+  const charCount = document.getElementById('char_count');
+  const maxLength = 500;
 
-  <script>
-    const textarea = document.getElementById('text_message');
-    const charCount = document.getElementById('char_count');
-    const maxLength = 500;
+  textarea.addEventListener('input', () => {
+      const remaining = maxLength - textarea.value.length;
+      charCount.textContent = `${remaining} characters remaining`;
 
-    textarea.addEventListener('input', () => {
-        const remaining = maxLength - textarea.value.length;
-        charCount.textContent = `${remaining} characters remaining`;
-
-        if (remaining <= 0) {
-            textarea.value = textarea.value.substring(0, maxLength);
-            charCount.textContent = `0 characters remaining`;
-        }
-    });
-  </script>
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register("{% static 'main/sw.js' %}")
-          .then(function(registration) {
-            console.log('Service Worker registered with scope:', registration.scope);
-          }, function(err) {
-            console.log('Service Worker registration failed:', err);
-          });
-      });
-    }
-  </script>
-</body>
-</html>
+      if (remaining <= 0) {
+          textarea.value = textarea.value.substring(0, maxLength);
+          charCount.textContent = `0 characters remaining`;
+      }
+  });
+</script>
+{% endblock scripts %}
