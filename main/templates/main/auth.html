@@ -4,6 +4,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="description" content="Anon is a secure and anonymous messenger platform where you can express yourself freely without revealing your identity.">
+    <meta name="keywords" content="anonymous chat, secure messaging, private messenger, anon, no login messaging">
+    <meta name="author" content="Justin Chinonso">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="{% static 'main/favicon-96x96.png' %}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{% static 'main/favicon.svg' %}" />
+    <link rel="shortcut icon" href="{% static 'main/favicon.ico' %}" />
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'main/apple-touch-icon.png' %}" />
+    <meta name="apple-mobile-web-app-title" content="Anon" />
+    <link rel="manifest" href="{% static 'main/site.webmanifest' %}" />
     <title>Anon | Welcome</title>
 </head>
 <style>
@@ -212,38 +223,50 @@
     }
 </style>
 <body>
-      <header class="header">
-        <div class="logo"><img src="{% static 'main/logo.png' %}" alt="logo" class="logo"></div>
-        <nav class="nav">
-          <a href="{% url 'login' %}" class="nav-link">Login</a>
-          <a href="{% url 'register' %}" class="nav-link">Sign Up</a>
-        </nav>
-        <button class="menu-toggle">☰</button>
-        <div class="menu">
-          <a href="{% url 'login' %}" class="menu-link">Login</a>
-          <a href="{% url 'register' %}" class="menu-link">Sign Up</a>
-        </div>
-      </header>
+  <header class="header">
+    <div class="logo"><img src="{% static 'main/logo.png' %}" alt="logo" class="logo"></div>
+    <nav class="nav">
+      <a href="{% url 'login' %}" class="nav-link">Login</a>
+      <a href="{% url 'register' %}" class="nav-link">Sign Up</a>
+    </nav>
+    <button class="menu-toggle">☰</button>
+    <div class="menu">
+      <a href="{% url 'login' %}" class="menu-link">Login</a>
+      <a href="{% url 'register' %}" class="menu-link">Sign Up</a>
+    </div>
+  </header>
 
-        
-      
-      <div class="background-animation"></div>
-      <div class="container">
-        <h1>Welcome to Anon!</h1>
-        <p>Send and receive anonymous messages with ease. Connect with others while keeping your identity private.</p>
-        <div class="button-container">
-          <a href="{% url 'login' %}">Login</a>
-          <a href="{% url 'register' %}">Sign Up</a>
-        </div>
-      </div>
-      
-      <script>
-        const menuToggle = document.querySelector('.menu-toggle');
-        const menu = document.querySelector('.menu');
     
-        menuToggle.addEventListener('click', () => {
-          menu.classList.toggle('open');
-        });
-      </script>
+  
+  <div class="background-animation"></div>
+  <div class="container">
+    <h1>Welcome to Anon!</h1>
+    <p>Send and receive anonymous messages with ease. Connect with others while keeping your identity private.</p>
+    <div class="button-container">
+      <a href="{% url 'login' %}">Login</a>
+      <a href="{% url 'register' %}">Sign Up</a>
+    </div>
+  </div>
+  
+  <script>
+    const menuToggle = document.querySelector('.menu-toggle');
+    const menu = document.querySelector('.menu');
+
+    menuToggle.addEventListener('click', () => {
+      menu.classList.toggle('open');
+    });
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register("{% static 'main/sw.js' %}")
+          .then(function(registration) {
+            console.log('Service Worker registered with scope:', registration.scope);
+          }, function(err) {
+            console.log('Service Worker registration failed:', err);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
