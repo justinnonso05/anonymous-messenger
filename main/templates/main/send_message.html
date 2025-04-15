@@ -89,7 +89,7 @@
   form {
     background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
-    padding: 25px;
+    padding: 13px;
     border-radius: 12px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     max-width: 450px;
@@ -140,17 +140,12 @@
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
-    transition: all 0.3s ease;
     font-weight: bold;
     letter-spacing: 0.5px;
+    margin-top: 13px;
   }
   
-  button:hover {
-    background-color: #3a4482;
-    transform: translateY(-3px);
-    box-shadow: 0 4px 10px rgba(41, 51, 104, 0.2);
-  }
-  
+
   .signup-banner {
     background: linear-gradient(45deg, #293368, #4854a2);
     border-radius: 12px;
@@ -266,7 +261,7 @@
     "I've been wanting to tell you this for a while... you're awesome!"
 </div>
 
-<div class="container" style="text-align: center; padding: 60px 20px; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; max-width: 1200px; margin: 0 auto;">
+<div class="container" style="text-align: center; padding: 60px 11px; z-index: 5; display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; max-width: 1200px; margin: 0 auto;">
     {% if messages %}
       {% for message in messages %}
         <div id="sent"><p>{{ message }}</p></div>
